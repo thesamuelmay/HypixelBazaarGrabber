@@ -27,7 +27,7 @@ jobs:
 
       - name: Run the script
         run: |
-          python fetch_bazaar_data.py
+          python getData.py
 
       - name: Upload Data
         uses: actions/upload-artifact@v2

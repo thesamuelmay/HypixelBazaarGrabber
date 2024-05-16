@@ -18,13 +18,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x
+          python-version: '3.x'
 
       - name: Download previous data artifact
+        id: download-data
         uses: actions/download-artifact@v2
         with:
           name: bazaar-data
           path: data/
+        continue-on-error: true
+
+      - name: List files in data folder before running script
+        run: |
+          echo "Listing files in data folder before running script"
+          ls -al data
 
       - name: Install dependencies
         run: |
@@ -35,8 +42,9 @@ jobs:
         run: |
           python getData.py
 
-      - name: List files in data folder
+      - name: List files in data folder after running script
         run: |
+          echo "Listing files in data folder after running script"
           ls -al data
 
       - name: Upload new data artifact

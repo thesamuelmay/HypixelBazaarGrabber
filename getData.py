@@ -19,7 +19,7 @@ def save_bazaar_data_to_file(data, folder):
         os.makedirs(folder)
     
     # Generate the filename with the current date and time
-    timestamp = datetime.now().strftime('%d%b-%H:%M')
+    timestamp = datetime.now().strftime('%d%b%y-%H%M')
     filename = os.path.join(folder, f'{timestamp}.json')
     
     with open(filename, 'w') as file:
@@ -39,4 +39,4 @@ def main():
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    main()
+        main()

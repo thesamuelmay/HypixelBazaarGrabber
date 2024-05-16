@@ -1,4 +1,4 @@
-name: Fetch Bazaar Data
+name: getData
 
 on:
   schedule:

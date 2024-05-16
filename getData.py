@@ -1,7 +1,10 @@
 import requests
 import json
+import os
+from datetime import datetime
 
 BAZAAR_API_URL = 'https://api.hypixel.net/skyblock/bazaar'
+DATA_FOLDER = 'data'
 
 def fetch_bazaar_data():
     response = requests.get(BAZAAR_API_URL)
@@ -10,9 +13,18 @@ def fetch_bazaar_data():
     else:
         response.raise_for_status()
 
-def save_bazaar_data_to_file(data, filename):
+def save_bazaar_data_to_file(data, folder):
+    # Create the folder if it doesn't exist
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+    
+    # Generate the filename with the current date and time
+    timestamp = datetime.now().strftime('%d%b-%H:%M')
+    filename = os.path.join(folder, f'{timestamp}.json')
+    
     with open(filename, 'w') as file:
         json.dump(data, file, indent=4)
+    return filename
 
 def main():
     try:
@@ -20,8 +32,7 @@ def main():
         data = fetch_bazaar_data()
         print("Bazaar data fetched successfully.")
         
-        filename = 'bazaar_data.json'
-        save_bazaar_data_to_file(data, filename)
+        filename = save_bazaar_data_to_file(data, DATA_FOLDER)
         print(f"Bazaar data saved to {filename}")
 
     except Exception as e:
